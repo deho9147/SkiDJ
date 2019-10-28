@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Base.AppTheme" parent="android:ThemeOverlay.Material.Dark">
+        <item name="android:background">@color/dark_backgroundColor</item>
+        <item name="android:textColor">@color/dark_textColor</item>
+        <item name="android:colorPrimary">@color/dark_backgroundColor</item>
+        <item name="android:colorAccent">@color/dark_accentColor</item>
+        <item name="android:textColorPrimary">@color/dark_textColor</item>
+
+    </style>
+    <style name="Base.Theme.AppCompat.SoundSpeed" parent="android:Theme.Material">
+        <item name="android:colorPrimary">@color/dark_backgroundColor</item>
+        <item name="android:colorAccent">@color/dark_accentColor</item>
+        <item name="android:textColorPrimary">@color/dark_textColor</item>
+    </style>
+    <style name="Light" parent="android:Theme.Holo.Light">
+        <item name="android:colorAccent">@color/light_accentColor</item>
+        <item name="android:textColorPrimary">@color/light_textColor</item>
+    </style>
+    <style name="Dark" parent="android:Theme.Holo">
+        <item name="android:background">@color/dark_backgroundColor</item>
+        <item name="android:textColor">@color/dark_textColor</item>
+        <item name="android:colorPrimary">@color/dark_backgroundColor</item>
+        <item name="android:colorAccent">@color/dark_accentColor</item>
+        <item name="android:textColorPrimary">@color/dark_textColor</item>
+    </style>
+    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:background">?attr/primaryBackgroundColor</item>
+        <item name="android:textColor">?attr/primaryTextColor</item>
+        <item name="android:colorAccent">?attr/colorAccent</item>
+    </style>
+    <style name="DarkTheme" parent="BaseTheme">
+        <item name="primaryBackgroundColor">@color/dark_backgroundColor</item>
+        <item name="primaryTextColor">@color/dark_textColor</item>
+        <item name="colorAccent">@color/dark_accentColor</item>
+        ,
+    </style>
+</resources>

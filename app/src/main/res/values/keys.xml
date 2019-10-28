@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="highSpeedVolumeKey">maxVolumeKey</string>
+    <string name="lowSpeedVolumeKey">minVolumeKey</string>
+    <string name="lowVelKey">lowVelKey</string>
+    <string name="highVelKey">highVelKey</string>
+    <string name="liftCheckKey">liftCheckKey</string>
+    <string name="refreshRateKey">refreshRateKey</string>
+    <string name="themePreferenceKey">themePreferenceKey</string>
+    <string name="unitPreferenceKey">unitPreferenceKey</string>
+    <string name="autoStartKey">autoStartKey</string>
+
+    <string name="stopUpdatesKey">stopUpdatesKey</string>
+    <string name="nonValueKey"> nonValueKey</string>
+</resources>

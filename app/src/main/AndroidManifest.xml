@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="e.dholland.ski_j">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-sdk android:maxSdkVersion="29"/>
+
+    <application
+            tools:replace="android:allowBackup, android:icon, android:theme, android:label"
+            android:allowBackup="true"
+            android:icon="@mipmap/snowflakeicon"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/snowflakeicon_round"
+            android:supportsRtl="true"
+            android:theme="@style/Theme.AppCompat">
+        <activity
+                android:name="MainActivity"
+                android:screenOrientation="portrait"
+                android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name="OptionsActivity"/>
+        <service android:name="ForegroundService"/>
+
+    </application>
+
+</manifest>

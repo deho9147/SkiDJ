@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name"> Ski-J</string>
+    <string name="High_Speed_Volume">High Speed Volume</string>
+    <string name="Low_Speed_Volume">Low Speed Volume</string>
+    <string name="Minimum_Speed_Text">Minimum\nSpeed</string>
+    <string name="Maximum_Speed_Text">Maximum\nSpeed</string>
+    <string name="Minimum_Speed_Value">0</string>
+    <string name="Maximum_Speed_Value">20</string>
+    <string name="Refresh_Rate_Text">Refresh Rate</string>
+    <string name="Refresh_Rate_Value">1.0</string>
+    <string name="Lift_Check_Text">Lift Check</string>
+    <string name="Blank_Speed_Text">0.0</string>
+    <string name="Options">Options</string>
+    <array name="unitChoices">
+        <item name="Mph">Miles per Hour</item>
+        <item name="Kmh">Kilometers per Hour</item>
+        <item name="m/s">Meters per Second</item>
+    </array>
+</resources>
