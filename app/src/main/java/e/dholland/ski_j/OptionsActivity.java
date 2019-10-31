@@ -44,12 +44,12 @@ public class OptionsActivity extends AppCompatActivity {
         spinner.setAdapter(adapter);
         spinner.setSelection(unitPreference);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            SharedPreferences.Editor sharedPrefEdit = sharedPref.edit();
+            SharedPreferences.Editor sharedPrefEditor = sharedPref.edit();
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 System.out.println(position);
-                sharedPrefEdit.putInt(getString(R.string.unitPreferenceKey),position);
-                sharedPrefEdit.commit();
+                sharedPrefEditor.putInt(getString(R.string.unitPreferenceKey),position);
+                sharedPrefEditor.commit();
             }
 
             @Override
@@ -121,12 +121,9 @@ public class OptionsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 SharedPreferences.Editor sharedPrefEditor = sharedPref.edit();
                 if (autoStartBox.isChecked()){
-                    System.out.println("isChecked");
-                    // autoStartBox.setChecked(false);
                     sharedPrefEditor.putBoolean(getString(R.string.autoStartKey),true);
                 }
                 else{
-                    //autoStartBox.setChecked(true);
                     sharedPrefEditor.putBoolean(getString(R.string.autoStartKey),false);
                 }
                 sharedPrefEditor.commit();
@@ -138,19 +135,6 @@ public class OptionsActivity extends AppCompatActivity {
     public void openMainActivity(){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-    }
-}
-
-class SpinnerActivity extends Activity implements AdapterView.OnItemSelectedListener {
-    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-    SharedPreferences.Editor sharedPrefEdit = sharedPref.edit();
-    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id){
-        sharedPrefEdit.putInt(getString(R.string.unitPreferenceKey),pos);
-        sharedPrefEdit.commit();
-
-    }
-    public void onNothingSelected(AdapterView<?> parent){
-
     }
 }
 

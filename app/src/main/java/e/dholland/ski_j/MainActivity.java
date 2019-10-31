@@ -49,6 +49,8 @@ public class MainActivity extends Activity implements LocationListener {
     int theme;
     int unitPreference;
 
+    Button startButton;
+
 
     boolean isServiceBound = false;
 
@@ -72,14 +74,12 @@ public class MainActivity extends Activity implements LocationListener {
 
         if (theme == 0){
             setTheme(R.style.Light);
-        }
-        else {
+        } else {
             setTheme(R.style.Dark);
         }
         if (autoStart){
             setContentView(R.layout.activity_main);
-        }
-        else{
+        }else{
             setContentView(R.layout.activity_main_start_button);
         }
 
@@ -108,13 +108,16 @@ public class MainActivity extends Activity implements LocationListener {
 
 
         minVelocityText = (EditText)findViewById(R.id.minSpeed);
-        minVelocityText.setText(Float.toString(Math.round(metersperSecondtoUnit(minVelocity))));
+        minVelocityText.setText(Integer.toString(Math.round(metersperSecondtoUnit(minVelocity))));
         minVelocityText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId==EditorInfo.IME_ACTION_DONE){
+                    sharedPrefEditor = sharedPref.edit();
                     String temp = minVelocityText.getText().toString();
                     minVelocity = unitToMetersPerSecond(Float.parseFloat(temp));
+                    sharedPrefEditor.putFloat(getString(R.string.lowVelKey),minVelocity);
+                    sharedPrefEditor.commit();
                     if (autoStart) {
                         startService();
                     }
@@ -123,14 +126,18 @@ public class MainActivity extends Activity implements LocationListener {
             }
         });
         maxVelocityText = (EditText)findViewById(R.id.maxSpeed);
-        System.out.println(maxVelocity);
-        maxVelocityText.setText(Float.toString(Math.round(metersperSecondtoUnit(maxVelocity))));
+        maxVelocityText.setText(Integer.toString(Math.round(metersperSecondtoUnit(maxVelocity))));
         maxVelocityText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId==EditorInfo.IME_ACTION_DONE){
+                    sharedPrefEditor = sharedPref.edit();
                     String temp = maxVelocityText.getText().toString();
+                    System.out.println(temp);
+                    System.out.println(Float.parseFloat(temp));
                     maxVelocity = unitToMetersPerSecond(Float.parseFloat(temp));
+                    sharedPrefEditor.putFloat(getString(R.string.highVelKey), maxVelocity);
+                    sharedPrefEditor.commit();
                     if (autoStart) {
                         startService();
                     }
@@ -155,6 +162,9 @@ public class MainActivity extends Activity implements LocationListener {
                     if (autoStart) {
                         startService();
                     }
+                    sharedPrefEditor = sharedPref.edit();
+                    sharedPrefEditor.putBoolean(getString(R.string.liftCheckKey),liftBool);
+                    sharedPrefEditor.commit();
                 }
             }
         });
@@ -162,14 +172,13 @@ public class MainActivity extends Activity implements LocationListener {
         optionsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("options button");
                 startOptionsActivity();
             }
         });
         if (autoStart){
             startService();
         }else{
-            final Button startButton = (Button) findViewById(R.id.startButton);
+            startButton = (Button) findViewById(R.id.startButton);
             startButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -208,25 +217,35 @@ public class MainActivity extends Activity implements LocationListener {
     public float metersperSecondtoUnit(float mps){
         float outputSpeed;
         if (unitPreference==0){
-            outputSpeed = (mps * (3600/1609));
+            //from m/s to mph
+            outputSpeed = (float)(mps*2.237);
         }
         else if(unitPreference==1){
-            outputSpeed = (mps*(3600/1000));
+            //from KmH to m/s
+            outputSpeed = (float)(mps*3.6);
         }
         else{
+            //alreadymps
             outputSpeed = mps;
         }
         return outputSpeed;
     }
     public float unitToMetersPerSecond(float unitSpeed){
+        System.out.println("in unit to mps");
+        System.out.println(unitSpeed);
         float mps;
         if (unitPreference == 0){
-            mps = (unitSpeed * (1609/3600));
+            //convert mph to mps
+            System.out.println(unitSpeed);
+            mps = (float)(unitSpeed/2.237);
+            System.out.println(mps);
         }
         else if(unitPreference == 1){
-            mps = (unitSpeed * (1000/3600));
+            //convert kmh to mps
+            mps = (float)(unitSpeed/3.6);
         }
         else{
+            //already mps
             mps = unitSpeed;
         }
         return mps;
@@ -270,8 +289,10 @@ public class MainActivity extends Activity implements LocationListener {
 
     protected void onDestroy() {
         super.onDestroy();
+        System.out.println("on Destroy");
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         sharedPrefEditor = sharedPref.edit();
+        System.out.println(maxVelocity);
         sharedPrefEditor.putInt(getString(R.string.highSpeedVolumeKey), sbv.getHighSpeedVolume());
         sharedPrefEditor.putInt(getString(R.string.lowSpeedVolumeKey), sbv.getLowSpeedVolume());
         sharedPrefEditor.putFloat(getString(R.string.highVelKey), maxVelocity);
