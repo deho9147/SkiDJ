@@ -113,7 +113,6 @@
             android:text="@string/Maximum_Speed_Text"
             android:textSize="24sp"
             android:textAlignment="center"
-            android:translationZ="1dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView3"

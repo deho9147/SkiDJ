@@ -3,8 +3,13 @@
     <color name="dark_backgroundColor">#2d2d2d</color>
     <color name="dark_accentColor">#ab80c6</color>
     <color name="dark_textColor">#ddffffff</color>
+    <color name="dark_barBackground">#ddffffff</color>
 
-    <color name="light_backgroundColor">#e6e6e6</color>
+    <color name="light_backgroundColor">#ffffff</color>
     <color name="light_textColor">#181818</color>
-    <color name="light_accentColor">#61367c</color>
+    <color name="light_accentColor">#ab80c6</color>
+    <color name="light_barBackground">#dccae7</color>
+
+    <color name="button_start">#80ff80</color>
+    <color name="button_stop">#ff6666</color>
 </resources>

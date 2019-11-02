@@ -31,15 +31,16 @@ public class OptionsActivity extends AppCompatActivity {
         unitPreference = sharedPref.getInt(getString(R.string.unitPreferenceKey),0);
         refreshRate = sharedPref.getFloat(getString(R.string.refreshRateKey),1);
         isAutoStart = sharedPref.getBoolean(getString(R.string.autoStartKey),true);
+        System.out.println(themePreference);
         if (themePreference == 0){
-            setTheme(R.style.BaseTheme);
+            setTheme(R.style.LightTheme);
         } else if (themePreference == 1){
-            setTheme(R.style.Light);
+            setTheme(R.style.DarkTheme);
         }
         setContentView(R.layout.activity_options);
 
         Spinner spinner =(Spinner) findViewById(R.id.unit_spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.unitChoices, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.unitChoices, R.layout.spinner_layout);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setSelection(unitPreference);
@@ -73,11 +74,10 @@ public class OptionsActivity extends AppCompatActivity {
                     if (isChecked) {
                         System.out.println("isChecked");
                         sharedPrefEditor.putInt(getString(R.string.themePreferenceKey),1);
-                        getApplication().setTheme(R.style.Dark);
                         sharedPrefEditor.commit();
                         recreate();
                     } else {
-                        System.out.println("not checked");
+                        System.out.println("lighttheme");
                         sharedPrefEditor.putInt(getString(R.string.themePreferenceKey),0);
                         sharedPrefEditor.commit();
                         recreate();
@@ -135,6 +135,14 @@ public class OptionsActivity extends AppCompatActivity {
     public void openMainActivity(){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+    public void onDestroy() {
+        super.onDestroy();
+        stopService();
+    }
+    public void stopService(){
+        Intent serviceIntent = new Intent(this, ForegroundService.class);
+        stopService(serviceIntent);
     }
 }
 

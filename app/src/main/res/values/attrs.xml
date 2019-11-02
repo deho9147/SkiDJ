@@ -4,4 +4,5 @@
     <attr name="primaryTextColor" format="color"/>
     <attr name="buttonHighlightColor" format="color" />
     <attr name="myColor" format="color"/>
+    <attr name="barBackground" format="color"/>
 </resources>

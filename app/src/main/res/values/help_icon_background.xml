@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="help_icon_background">?attr/colorAccent</color>
+</resources>

@@ -177,7 +177,7 @@ public class ForegroundService extends Service implements LocationListener {
                 .setPriority(NotificationManager.IMPORTANCE_MIN)
                 .setCategory(Notification.CATEGORY_SERVICE)
                 .setColorized(true)
-                .setColor(resources.getColor(R.color.dark_backgroundColor, getTheme()))
+                .setColor(resources.getColor(R.color.dark_accentColor))
                 .setContentIntent(pendingIntent)
                 .build();
         startForeground(2, notification);

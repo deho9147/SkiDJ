@@ -2,7 +2,6 @@ package e.dholland.ski_j;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.*;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
@@ -49,6 +48,8 @@ public class MainActivity extends Activity implements LocationListener {
     int theme;
     int unitPreference;
 
+    boolean serviceRunning;
+
     Button startButton;
 
 
@@ -72,16 +73,14 @@ public class MainActivity extends Activity implements LocationListener {
         refreshRate = sharedPref.getFloat(getString(R.string.refreshRateKey),1);
         unitPreference = sharedPref.getInt(getString(R.string.unitPreferenceKey),0);
 
+        serviceRunning=false;
+
         if (theme == 0){
-            setTheme(R.style.Light);
+            setTheme(R.style.LightTheme);
         } else {
-            setTheme(R.style.Dark);
+            setTheme(R.style.DarkTheme);
         }
-        if (autoStart){
-            setContentView(R.layout.activity_main);
-        }else{
-            setContentView(R.layout.activity_main_start_button);
-        }
+        setContentView(R.layout.activity_main);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
@@ -118,7 +117,7 @@ public class MainActivity extends Activity implements LocationListener {
                     minVelocity = unitToMetersPerSecond(Float.parseFloat(temp));
                     sharedPrefEditor.putFloat(getString(R.string.lowVelKey),minVelocity);
                     sharedPrefEditor.commit();
-                    if (autoStart) {
+                    if (autoStart||serviceRunning) {
                         startService();
                     }
                 }
@@ -138,7 +137,7 @@ public class MainActivity extends Activity implements LocationListener {
                     maxVelocity = unitToMetersPerSecond(Float.parseFloat(temp));
                     sharedPrefEditor.putFloat(getString(R.string.highVelKey), maxVelocity);
                     sharedPrefEditor.commit();
-                    if (autoStart) {
+                    if (autoStart||serviceRunning) {
                         startService();
                     }
                 }
@@ -159,7 +158,7 @@ public class MainActivity extends Activity implements LocationListener {
                 }
                 else {
                     liftBool = false;
-                    if (autoStart) {
+                    if (autoStart||serviceRunning) {
                         startService();
                     }
                     sharedPrefEditor = sharedPref.edit();
@@ -175,20 +174,27 @@ public class MainActivity extends Activity implements LocationListener {
                 startOptionsActivity();
             }
         });
+        startButton = (Button) findViewById(R.id.startButton);
         if (autoStart){
+            startButton.setVisibility(View.INVISIBLE);
+            serviceRunning=true;
             startService();
         }else{
-            startButton = (Button) findViewById(R.id.startButton);
+            startButton.setVisibility(View.VISIBLE);
             startButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (startButton.getText().toString()=="Start"){
-                        startButton.setText("Stop");
-                        startService();
-                    }
-                    else{
+                    if (startButton.getText().toString()=="Stop"){
+                        serviceRunning=false;
+                        startButton.setBackgroundResource(R.drawable.start_button_green);
                         stopService();
                         startButton.setText("Start");
+                    }
+                    else{
+                        startButton.setText("Stop");
+                        startButton.setBackgroundResource(R.drawable.start_button_red);
+                        serviceRunning = true;
+                        startService();
                     }
                 }
             });
@@ -316,7 +322,7 @@ public class MainActivity extends Activity implements LocationListener {
         serviceIntent.putExtra(getString(R.string.liftCheckKey),liftBool);
         serviceIntent.putExtra(getString(R.string.stopUpdatesKey), false);
         serviceIntent.putExtra(getString(R.string.refreshRateKey), refreshRate);
-        startService(serviceIntent);
+        startForegroundService(serviceIntent);
     }
     public void stopService(){
         Intent serviceIntent = new Intent(this, ForegroundService.class);

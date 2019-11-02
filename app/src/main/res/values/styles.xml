@@ -28,11 +28,62 @@
         <item name="android:background">?attr/primaryBackgroundColor</item>
         <item name="android:textColor">?attr/primaryTextColor</item>
         <item name="android:colorAccent">?attr/colorAccent</item>
+        <item name="barBackground">?attr/barBackground</item>
+        <item name="android:editTextStyle">@style/editTextStyle</item>
+        <item name="android:seekBarStyle">@style/seekBarStyle</item>
+        <item name="android:checkboxStyle">@style/checkBoxStyle</item>
+        <item name="android:buttonStyle">@style/buttonStyle</item>
+        <item name="android:switchStyle">@style/switchStyle</item>
+        <item name="android:spinnerStyle">@style/spinnerStyle</item>
     </style>
     <style name="DarkTheme" parent="BaseTheme">
         <item name="primaryBackgroundColor">@color/dark_backgroundColor</item>
         <item name="primaryTextColor">@color/dark_textColor</item>
         <item name="colorAccent">@color/dark_accentColor</item>
-        ,
+        <item name="barBackground">@color/dark_barBackground</item>
+    </style>
+    <style name="LightTheme" parent="BaseTheme">
+        <item name="primaryBackgroundColor">@color/light_backgroundColor</item>
+        <item name="primaryTextColor">@color/light_textColor</item>
+        <item name="colorAccent">@color/light_accentColor</item>
+        <item name="barBackground">@color/light_barBackground</item>
+    </style>
+    <style name="editTextStyle" parent = "@style/Widget.AppCompat.EditText">
+        <item name="android:textColor">?attr/primaryTextColor</item>
+        <item name="android:backgroundTint">?attr/primaryTextColor</item>
+    </style>
+    <style name="seekBarStyle" parent = "@style/Widget.AppCompat.SeekBar">
+        <item name="android:progressBackgroundTint">?attr/barBackground</item>
+        <item name="android:progressTint">?attr/colorAccent</item>
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@android:drawable/progress_horizontal</item>
+        <item name="android:indeterminateDrawable">@android:drawable/progress_horizontal</item>
+        <item name="android:minHeight">10dp</item>
+        <item name="android:maxHeight">20dp</item>
+        <item name="android:thumb">@drawable/seekbar_thumb_rounded_corners</item>
+        <item name="android:thumbTint">?attr/colorAccent</item>
+    </style>
+    <style name="checkBoxStyle" parent="@style/Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:textColor">?attr/primaryTextColor</item>
+        <item name="android:buttonTint">?attr/primaryTextColor</item>
+    </style>
+    <style name="buttonStyle" parent="@style/Widget.AppCompat.Button">
+    </style>
+    <style name="switchStyle" parent="@style/Widget.AppCompat.CompoundButton.Switch">
+        <item name="android:textColor">?attr/primaryTextColor</item>
+        <item name="android:thumb">@drawable/switch_thumb_rounded_corners</item>
+        <item name="android:thumbTint">?attr/colorAccent</item>
+        <item name="android:track">@drawable/switch_track</item>
+        <item name="android:trackTint">?attr/barBackground</item>
+    </style>
+    <style name="spinnerStyle" parent="@style/Widget.AppCompat.Spinner">
+        <item name="android:textSize"> 30dp</item>
+        <item name="android:colorAccent">?attr/primaryTextColor</item>
+    </style>
+    <style name="textStyle">
+        <item name="android:textSize">20dp</item>
+    </style>
+    <style name="spinnerDropDownStyle" parent="Base.Widget.AppCompat.DropDownItem.Spinner">
+        <item name="android:background">@drawable/spinner_dropdown</item>
     </style>
 </resources>
