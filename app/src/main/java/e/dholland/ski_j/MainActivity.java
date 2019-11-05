@@ -46,7 +46,7 @@ public class MainActivity extends Activity implements LocationListener {
     float minVelocity;
     boolean liftBool;
     boolean autoStart;
-    float refreshRate;
+    int refreshRate;
     int theme;
     int unitPreference;
 
@@ -68,11 +68,11 @@ public class MainActivity extends Activity implements LocationListener {
         lowVolume = sharedPref.getInt(getString(R.string.lowSpeedVolumeKey),0);
         highVolume = sharedPref.getInt(getString(R.string.highSpeedVolumeKey),13);
         minVelocity = sharedPref.getFloat(getString(R.string.lowVelKey),0);
-        maxVelocity = sharedPref.getFloat(getString(R.string.highVelKey),30);
+        maxVelocity = sharedPref.getFloat(getString(R.string.highVelKey),10);
         liftBool = sharedPref.getBoolean(getString(R.string.liftCheckKey), true);
         theme = sharedPref.getInt(getString(R.string.themePreferenceKey),0);
-        autoStart = sharedPref.getBoolean(getString(R.string.autoStartKey),true);
-        refreshRate = sharedPref.getFloat(getString(R.string.refreshRateKey),1);
+        autoStart = sharedPref.getBoolean(getString(R.string.autoStartKey),false);
+        refreshRate = sharedPref.getInt(getString(R.string.refreshRateKey),1);
         unitPreference = sharedPref.getInt(getString(R.string.unitPreferenceKey),0);
 
         serviceRunning=false;
@@ -305,7 +305,7 @@ public class MainActivity extends Activity implements LocationListener {
         sharedPrefEditor.putFloat(getString(R.string.highVelKey), maxVelocity);
         sharedPrefEditor.putFloat(getString(R.string.lowVelKey), minVelocity);
         sharedPrefEditor.putBoolean(getString(R.string.liftCheckKey), liftBool);
-        sharedPrefEditor.putFloat(getString(R.string.refreshRateKey), refreshRate);
+        sharedPrefEditor.putInt(getString(R.string.refreshRateKey), refreshRate);
         sharedPrefEditor.commit();
         am.setStreamVolume(AudioManager.STREAM_MUSIC, beforeVolume, 0);
         Intent serviceIntent = new Intent(this, ForegroundService.class);

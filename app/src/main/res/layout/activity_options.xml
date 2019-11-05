@@ -60,7 +60,7 @@
             style="@style/editTextStyle"
             android:layout_width="75dp"
             android:layout_height="54dp"
-            android:inputType="numberDecimal"
+            android:inputType="number"
             android:textAlignment="center"
             android:textSize="28dp"
             android:ems="10"

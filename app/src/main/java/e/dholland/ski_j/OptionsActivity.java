@@ -18,7 +18,7 @@ public class OptionsActivity extends AppCompatActivity {
     SharedPreferences sharedPref;
     int themePreference;
     int unitPreference;
-    float refreshRate;
+    int refreshRate;
     boolean isAutoStart;
     EditText refreshRateText;
     Button backButton;
@@ -32,8 +32,8 @@ public class OptionsActivity extends AppCompatActivity {
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         themePreference = sharedPref.getInt(getString(R.string.themePreferenceKey),0);
         unitPreference = sharedPref.getInt(getString(R.string.unitPreferenceKey),0);
-        refreshRate = sharedPref.getFloat(getString(R.string.refreshRateKey),1);
-        isAutoStart = sharedPref.getBoolean(getString(R.string.autoStartKey),true);
+        refreshRate = sharedPref.getInt(getString(R.string.refreshRateKey),1);
+        isAutoStart = sharedPref.getBoolean(getString(R.string.autoStartKey),false);
         System.out.println(themePreference);
         if (themePreference == 0){
             setTheme(R.style.LightTheme);
@@ -91,15 +91,15 @@ public class OptionsActivity extends AppCompatActivity {
         });
 
         refreshRateText = (EditText)findViewById(R.id.refreshRateNumber);
-        refreshRateText.setText(Float.toString(refreshRate));
+        refreshRateText.setText(Integer.toString(refreshRate));
         refreshRateText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId== EditorInfo.IME_ACTION_DONE){
                     SharedPreferences.Editor sharedPrefEditor = sharedPref.edit();
                     String temp = refreshRateText.getText().toString();
-                    refreshRate = Float.parseFloat(temp);
-                    sharedPrefEditor.putFloat(getString(R.string.refreshRateKey), refreshRate);
+                    refreshRate = Integer.parseInt(temp);
+                    sharedPrefEditor.putInt(getString(R.string.refreshRateKey), refreshRate);
                     sharedPrefEditor.commit();
                 }
                 return false;
@@ -157,13 +157,8 @@ public class OptionsActivity extends AppCompatActivity {
     public void onShowPopupWindow(View view){
         LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = inflater.inflate(R.layout.popup_options, null);
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        int width = size.x;
         TypedValue temp = new TypedValue();
         getTheme().resolveAttribute(R.attr.background,temp, true );
-        int height = size.y;
         popupView.setBackground(getDrawable(R.drawable.simple_border));
         final PopupWindow popupWindow = new PopupWindow(popupView, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT, true);
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 20);

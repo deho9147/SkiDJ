@@ -39,7 +39,7 @@ public class ForegroundService extends Service implements LocationListener {
 
     private boolean liftBool;
     private boolean liftPrimed;
-    private float refreshRate;
+    private int refreshRate;
 
     private boolean onLift;
     private double currentAltitude = 120;
@@ -74,7 +74,7 @@ public class ForegroundService extends Service implements LocationListener {
         speedSum = 0;
         pastSpeed = 0.0;
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mainContext);
-        refreshRate = sharedPreferences.getFloat(resources.getString(R.string.refreshRateKey),1);
+        refreshRate = sharedPreferences.getInt(resources.getString(R.string.refreshRateKey),1);
 
 
         liftCheckCounter = 0;
@@ -83,7 +83,6 @@ public class ForegroundService extends Service implements LocationListener {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             startMyOwnForeground();
-            System.out.println("StartMyownFOregroundJustcalled");
         }
         else {
             startForeground(1, new Notification());
@@ -97,7 +96,6 @@ public class ForegroundService extends Service implements LocationListener {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, (long) refreshRate *1000, 0, this);
             this.onLocationChanged(null);
         }
-        System.out.println("onCreate method");
 
     }
 
