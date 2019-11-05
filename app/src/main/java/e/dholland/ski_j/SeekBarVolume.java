@@ -72,18 +72,17 @@ public class SeekBarVolume extends AppCompatActivity implements SeekBar.OnSeekBa
 
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
-        Intent servioeIntent = new Intent(mainContext, ForegroundService.class);
-        servioeIntent.putExtra(resources.getString(R.string.stopUpdatesKey), true);
-        mainContext.startService(servioeIntent);
+        Intent serviceIntent = new Intent(mainContext, ForegroundService.class);
+        serviceIntent.putExtra(resources.getString(R.string.stopUpdatesKey), true);
+        mainContext.startService(serviceIntent);
         currentVolume = am.getStreamVolume(AudioManager.STREAM_MUSIC);
 
     }
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-        ;
         System.out.println("OnStopTrackingTouch");
-        //am.setStreamVolume(AudioManager.STREAM_MUSIC, currentVolume, 0);
+
         startService();
 
     }

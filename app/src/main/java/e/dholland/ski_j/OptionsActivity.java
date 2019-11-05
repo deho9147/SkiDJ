@@ -1,6 +1,7 @@
 package e.dholland.ski_j;
 
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -164,7 +165,7 @@ public class OptionsActivity extends AppCompatActivity {
         getTheme().resolveAttribute(R.attr.background,temp, true );
         int height = size.y;
         popupView.setBackground(getDrawable(R.drawable.simple_border));
-        final PopupWindow popupWindow = new PopupWindow(popupView, width-100, 600, true);
+        final PopupWindow popupWindow = new PopupWindow(popupView, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT, true);
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 20);
         popupView.setOnTouchListener(new View.OnTouchListener() {
             @Override

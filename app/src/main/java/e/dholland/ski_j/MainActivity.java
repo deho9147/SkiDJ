@@ -1,6 +1,7 @@
 package e.dholland.ski_j;
 
 import android.Manifest;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.*;
 import android.content.pm.PackageManager;
@@ -279,13 +280,10 @@ public class MainActivity extends Activity implements LocationListener {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        int width = size.x;
-        //int height = LinearLayout.LayoutParams.WRAP_CONTENT;
         TypedValue temp = new TypedValue();
         getTheme().resolveAttribute(R.attr.background,temp, true );
-        int height = size.y;
         popupView.setBackground(getDrawable(R.drawable.simple_border));
-        final PopupWindow popupWindow = new PopupWindow(popupView, width-100, height-500, true);
+        final PopupWindow popupWindow = new PopupWindow(popupView, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT, true);
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 20);
         popupView.setOnTouchListener(new View.OnTouchListener() {
             @Override
