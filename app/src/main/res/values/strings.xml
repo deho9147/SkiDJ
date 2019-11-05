@@ -11,6 +11,12 @@
     <string name="Lift_Check_Text">Lift Check</string>
     <string name="Blank_Speed_Text">0.0</string>
     <string name="Options">Options</string>
+    <string name="High_Speed_Volume_Explanation">High Speed Volume: The music volume played while at or above the maximum speed specified.</string>
+    <string name="Low_Speed_Volume_Explanation">Low Speed Volume: The music volume played while at or below the minimum speed specified. Also, the volume used while Lift Check detects you are on a lift.</string>
+    <string name="Minimum_Speed_Explanation">Minimum Speed: Moving slower than the minimum speed will set the volume to the Low Speed Volume.</string>
+    <string name="Max_Speed_Explanation">Maximum Speed: Moving faster than the maximum speed will set the volume to the High Speed Volume.</string>
+    <string name="Lift_Check_Explanation">Lift Check: Checking the lift check means the app will set the volume to the Low Speed Volume when senses you are on a lift.</string>
+    <string name="Refresh_Rate_Explanation">Refresh Rate: The rate the app retrieves GPS information in seconds. A shorter refresh rate will be more accurate but use more battery.</string>
     <array name="unitChoices">
         <item name="Mph">Miles per Hour</item>
         <item name="Kmh">Kilometers per Hour</item>

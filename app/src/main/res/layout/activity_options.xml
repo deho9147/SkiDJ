@@ -17,7 +17,7 @@
             android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.009"/>
+            app:layout_constraintVertical_bias="0.012"/>
     <Spinner
             style="@style/spinnerDropDownStyle"
             android:layout_width="265dp"
@@ -26,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            app:layout_constraintVertical_bias="0.176" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="0.194" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp"/>
     <CheckBox
             android:text="Automatic Start"
@@ -39,7 +39,7 @@
             app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            app:layout_constraintVertical_bias="0.549"/>
+            app:layout_constraintVertical_bias="0.415"/>
     <Switch
             android:text="Theme"
             android:showText="true"
@@ -55,7 +55,7 @@
             app:layout_constraintBottom_toBottomOf="parent" android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintVertical_bias="0.374"/>
+            app:layout_constraintVertical_bias="0.283"/>
     <EditText
             style="@style/editTextStyle"
             android:layout_width="75dp"
@@ -71,7 +71,7 @@
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent" android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.796"
-            app:layout_constraintVertical_bias="0.706"/>
+            app:layout_constraintVertical_bias="0.531"/>
     <TextView
             android:text="@string/Refresh_Rate_Text"
             android:textSize="28dp"
@@ -82,7 +82,7 @@
             app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            app:layout_constraintHorizontal_bias="0.364" app:layout_constraintVertical_bias="0.702"/>
+            app:layout_constraintHorizontal_bias="0.285" app:layout_constraintVertical_bias="0.531"/>
     <Button
             android:background="@drawable/back_icon_rounded_corners"
             android:textAlignment="center"
@@ -92,8 +92,8 @@
             app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp"
             app:layout_constraintTop_toTopOf="parent" android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.072"
-            app:layout_constraintVertical_bias="0.021"/>
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.07"
+            app:layout_constraintVertical_bias="0.051"/>
     <TextView
             android:text="Unit"
             android:textAlignment="center"
@@ -106,5 +106,16 @@
             android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.137"/>
+    <Button
+            android:background="@drawable/help_icon_foreground"
+            android:paddingVertical="5dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/helpButtonOptions"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.929"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.05"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

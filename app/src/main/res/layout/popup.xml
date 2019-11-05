@@ -3,18 +3,66 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/simple_border"
 >
     <TextView
-            android:text="\nHigh Speed Volume: The music volume played while at or above the maximum speed specified.\n \nLow Speed Volume: The music volume played while at or below the minimum speed specified. Also, the volume used while Lift Check detects you are on a lift.\n \nMinimum Speed: Moving slower than the minimum speed will set the volume to the Low Speed Volume. \n \nMaximum Speed: Moving faster than the maximum speed will set the volume to the High Speed Volume. \n \nLift Check: Checking the lift check means the app will set the volume to the Low Speed Volume when senses you are on a lift.\n\nRefresh Rate: The rate the app retrieves GPS information in seconds. A shorter refresh rate will be more accurate but use more battery. Set to 0 for instant updates. To use the new refresh rate you must restart the app.\n"
+            android:text="@string/High_Speed_Volume_Explanation"
             android:textSize="22dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" tools:layout_editor_absoluteY="137dp"
+            android:layout_width="341dp"
+            android:layout_height="89dp"
             android:layout_marginHorizontal="14dp"
-            android:autoSizeTextType="uniform"
-            android:autoSizeMaxTextSize="100sp"
-            android:autoSizeMinTextSize="12sp"
-            android:autoSizeStepGranularity="2sp"
-            android:id="@+id/infoText" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"/>
-
+            android:id="@+id/infoText"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView6"/>
+    <TextView
+            android:text="@string/Low_Speed_Volume_Explanation"
+            android:textSize="22dp"
+            android:layout_width="341dp"
+            android:layout_height="142dp"
+            android:id="@+id/textView6"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView7" app:layout_constraintVertical_bias="0.893"/>
+    <TextView
+            android:text="@string/Max_Speed_Explanation"
+            android:textSize="22dp"
+            android:layout_width="341dp"
+            android:layout_height="117dp"
+            android:id="@+id/textView7"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/textView8"
+            app:layout_constraintVertical_bias="0.964"/>
+    <TextView
+            android:text="@string/Minimum_Speed_Explanation"
+            android:textSize="22dp"
+            android:layout_width="341dp"
+            android:layout_height="111dp"
+            android:id="@+id/textView8"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView9" app:layout_constraintVertical_bias="0.96"/>
+    <TextView
+            android:text="@string/Lift_Check_Explanation"
+            android:textSize="22dp"
+            android:layout_width="341dp"
+            android:layout_height="125dp"
+            android:id="@+id/textView9"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintVertical_bias="1.0"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

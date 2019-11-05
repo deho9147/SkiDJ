@@ -11,6 +11,7 @@ import android.location.LocationManager;
 import android.media.AudioManager;
 import android.preference.PreferenceManager;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.*;
 import android.view.inputmethod.EditorInfo;
 import android.widget.*;
@@ -280,9 +281,11 @@ public class MainActivity extends Activity implements LocationListener {
         display.getSize(size);
         int width = size.x;
         //int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        TypedValue temp = new TypedValue();
+        getTheme().resolveAttribute(R.attr.background,temp, true );
         int height = size.y;
-        popupView.setBackgroundColor(getColor(R.color.primary_material_dark));
-        final PopupWindow popupWindow = new PopupWindow(popupView, width-60, height, true);
+        popupView.setBackground(getDrawable(R.drawable.simple_border));
+        final PopupWindow popupWindow = new PopupWindow(popupView, width-100, height-500, true);
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 20);
         popupView.setOnTouchListener(new View.OnTouchListener() {
             @Override

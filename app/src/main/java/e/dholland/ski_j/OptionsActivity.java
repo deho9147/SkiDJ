@@ -4,10 +4,11 @@ package e.dholland.ski_j;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.preference.PreferenceManager;
 import android.os.Bundle;
-import android.view.KeyEvent;
-import android.view.View;
+import android.util.TypedValue;
+import android.view.*;
 import android.view.inputmethod.EditorInfo;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +22,7 @@ public class OptionsActivity extends AppCompatActivity {
     EditText refreshRateText;
     Button backButton;
     CheckBox autoStartBox;
+    Button helpButton;
 
 
     @Override
@@ -129,6 +131,13 @@ public class OptionsActivity extends AppCompatActivity {
                 sharedPrefEditor.commit();
             }
         });
+        helpButton = (Button) findViewById(R.id.helpButtonOptions);
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onShowPopupWindow(view);
+            }
+        });
 
 
     }
@@ -143,6 +152,27 @@ public class OptionsActivity extends AppCompatActivity {
     public void stopService(){
         Intent serviceIntent = new Intent(this, ForegroundService.class);
         stopService(serviceIntent);
+    }
+    public void onShowPopupWindow(View view){
+        LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.popup_options, null);
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        TypedValue temp = new TypedValue();
+        getTheme().resolveAttribute(R.attr.background,temp, true );
+        int height = size.y;
+        popupView.setBackground(getDrawable(R.drawable.simple_border));
+        final PopupWindow popupWindow = new PopupWindow(popupView, width-100, 600, true);
+        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 20);
+        popupView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                popupWindow.dismiss();
+                return true;
+            }
+        });
     }
 }
 
