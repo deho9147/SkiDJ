@@ -6,26 +6,24 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.media.AudioManager;
 import android.preference.PreferenceManager;
-import android.view.KeyEvent;
-import android.view.View;
 import android.widget.SeekBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SeekBarVolume extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
-    Context mainContext;
-    SeekBar sbHigh;
-    SeekBar sbLow;
-    AudioManager am;
+    private Context mainContext;
+    private SeekBar sbHigh;
+    private SeekBar sbLow;
+    private AudioManager am;
 
-    SharedPreferences sharedPref;
-    SharedPreferences.Editor sharedPrefEditor;
-    Resources resources;
+    private SharedPreferences sharedPref;
+    private SharedPreferences.Editor sharedPrefEditor;
+    private Resources resources;
 
-    int maxVolume;
-    int preAppVolume;
-    int lowSpeedVolume;
-    int highSpeedVolume;
-    int currentVolume;
+    private int maxVolume;
+    private int preAppVolume;
+    private int lowSpeedVolume;
+    private int highSpeedVolume;
+    private int currentVolume;
 
 
     public SeekBarVolume(Context inputContext, SeekBar sbHighinput, SeekBar sbLowinput, AudioManager aminput) {
@@ -56,8 +54,6 @@ public class SeekBarVolume extends AppCompatActivity implements SeekBar.OnSeekBa
         sbLow.setOnSeekBarChangeListener(this);
     }
 
-    ;
-
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         if (seekBar == sbHigh) {
@@ -81,29 +77,25 @@ public class SeekBarVolume extends AppCompatActivity implements SeekBar.OnSeekBa
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-        System.out.println("OnStopTrackingTouch");
-
         startService();
 
     }
 
     public int getHighSpeedVolume() {
-
         return highSpeedVolume;
     }
 
     public int getLowSpeedVolume() {
+
         return lowSpeedVolume;
     }
 
-    public void startService() {
+
+    private void startService() {
         Intent serviceIntent = new Intent(mainContext, ForegroundService.class);
-        System.out.println("AfterServiceIntent");
         serviceIntent.putExtra(resources.getString(R.string.lowSpeedVolumeKey), lowSpeedVolume);
         serviceIntent.putExtra(resources.getString(R.string.highSpeedVolumeKey), highSpeedVolume);
         serviceIntent.putExtra(resources.getString(R.string.stopUpdatesKey), false);
-        System.out.println("Added extras");
         mainContext.startService(serviceIntent);
-        System.out.println("service Called?");
     }
 }

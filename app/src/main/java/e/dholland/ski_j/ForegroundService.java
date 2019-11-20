@@ -42,7 +42,7 @@ public class ForegroundService extends Service implements LocationListener {
     private int refreshRate;
 
     private boolean onLift;
-    private double currentAltitude = 120;
+    private double currentAltitude;
     private double pastAltitudeLongTerm;
     private double pastSpeed;
     private double pastAltitudeShortTerm;
@@ -73,6 +73,7 @@ public class ForegroundService extends Service implements LocationListener {
         pastAltitudeLongTerm = 0.0;
         speedSum = 0;
         pastSpeed = 0.0;
+        currentAltitude = 120;
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mainContext);
         refreshRate = sharedPreferences.getInt(resources.getString(R.string.refreshRateKey),1);
 
@@ -103,24 +104,6 @@ public class ForegroundService extends Service implements LocationListener {
 
     public int onStartCommand(Intent intent, int Flags, int startID){
 
-//        if (intent.getExtras().get("lowSpeedVolumeKey") != null){
-//            minVolume = (int) intent.getExtras().get("minVolumeKey");
-//        }
-//        if (intent.getExtras().get("highSpeedVolumeKey") != null){
-//            maxVolume = (int) intent.getExtras().get("highSpeedVolumeKey");
-//        }
-//        if (intent.getExtras().get("lowVelKey") != null){
-//            minVelocity = (int) intent.getExtras().get("lowVelKey");
-//        }
-//        if (intent.getExtras().get("highVelKey") != null){
-//            maxVelocity = (int) intent.getExtras().get("highVelKey");
-//        }
-//
-//
-//        maxVelocity = -2;
-//        minVelocity = -10;
-
-
         System.out.println((intent.getExtras().getInt(resources.getString(R.string.lowSpeedVolumeKey))));
         if (intent.getExtras().get(resources.getString(R.string.lowSpeedVolumeKey))!= null){
             minVolume = (int) intent.getExtras().get(resources.getString(R.string.lowSpeedVolumeKey));
@@ -150,6 +133,7 @@ public class ForegroundService extends Service implements LocationListener {
             speedBuffer = maxVolume*.1;
         }
 
+        //possible update volume change speed so its smooth
         //volumeChangeSpeed = (int) Math.round(((audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)*.1) - .1));
         volumeChangeSpeed = 100;
 
@@ -185,8 +169,8 @@ public class ForegroundService extends Service implements LocationListener {
     public void onDestroy(){
         super.onDestroy();
         locationManager.removeUpdates(this);
-
     }
+
     @Override
     public IBinder onBind(Intent intent) {
         return null;
@@ -274,7 +258,6 @@ public class ForegroundService extends Service implements LocationListener {
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-
 
     }
 

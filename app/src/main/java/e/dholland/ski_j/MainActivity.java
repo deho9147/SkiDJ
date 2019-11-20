@@ -22,23 +22,22 @@ import androidx.core.app.ActivityCompat;
 public class MainActivity extends Activity implements LocationListener {
 
     public static final int REQUEST_LOCATION = 1;
-    LocationManager locationManager;
 
+    LocationManager locationManager;
     AudioManager am;
 
     Button helpButton;
-
     SeekBar sblow;
     SeekBar sbhigh;
     SeekBarVolume sbv;
-
-    int beforeVolume;
-
+    Button startButton;
     EditText minVelocityText;
     EditText maxVelocityText;
-
     CheckBox liftCheckBox;
     Button optionsButton;
+
+    SharedPreferences sharedPref;
+    SharedPreferences.Editor sharedPrefEditor;
 
     int highVolume;
     int lowVolume;
@@ -50,20 +49,15 @@ public class MainActivity extends Activity implements LocationListener {
     int theme;
     int unitPreference;
 
+    int beforeVolume;
     boolean serviceRunning;
-
-    Button startButton;
-
-
-    boolean isServiceBound = false;
-
-    SharedPreferences sharedPref;
-    SharedPreferences.Editor sharedPrefEditor;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         lowVolume = sharedPref.getInt(getString(R.string.lowSpeedVolumeKey),0);
         highVolume = sharedPref.getInt(getString(R.string.highSpeedVolumeKey),13);
@@ -75,7 +69,9 @@ public class MainActivity extends Activity implements LocationListener {
         refreshRate = sharedPref.getInt(getString(R.string.refreshRateKey),1);
         unitPreference = sharedPref.getInt(getString(R.string.unitPreferenceKey),0);
 
+
         serviceRunning=false;
+
 
         if (theme == 0){
             setTheme(R.style.LightTheme);
@@ -83,6 +79,7 @@ public class MainActivity extends Activity implements LocationListener {
             setTheme(R.style.DarkTheme);
         }
         setContentView(R.layout.activity_main);
+
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
@@ -92,6 +89,7 @@ public class MainActivity extends Activity implements LocationListener {
             this.onLocationChanged(null);
         }
 
+
         helpButton = (Button)findViewById(R.id.helpButton);
         helpButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,9 +98,9 @@ public class MainActivity extends Activity implements LocationListener {
             }
         });
 
+
         sbhigh = (SeekBar)findViewById(R.id.VolumeBarHigh);
         sblow = (SeekBar)findViewById(R.id.VolumeBarLow);
-
         am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         beforeVolume = am.getStreamVolume(AudioManager.STREAM_MUSIC);
         sbv = new SeekBarVolume(this, sbhigh, sblow, am);
@@ -126,6 +124,8 @@ public class MainActivity extends Activity implements LocationListener {
                 return false;
             }
         });
+
+
         maxVelocityText = (EditText)findViewById(R.id.maxSpeed);
         maxVelocityText.setText(Integer.toString(Math.round(metersperSecondtoUnit(maxVelocity))));
         maxVelocityText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -146,6 +146,7 @@ public class MainActivity extends Activity implements LocationListener {
                 return false;
             }
         });
+
 
         liftCheckBox = findViewById(R.id.LiftCheck);
         liftCheckBox.setChecked(liftBool);
@@ -169,6 +170,9 @@ public class MainActivity extends Activity implements LocationListener {
                 }
             }
         });
+
+
+
         optionsButton = findViewById(R.id.optionsButton);
         optionsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,6 +180,8 @@ public class MainActivity extends Activity implements LocationListener {
                 startOptionsActivity();
             }
         });
+
+
         startButton = (Button) findViewById(R.id.startButton);
         if (autoStart){
             startButton.setVisibility(View.INVISIBLE);
@@ -201,7 +207,6 @@ public class MainActivity extends Activity implements LocationListener {
                 }
             });
         }
-
     }
 
     public void onLocationChanged(Location location) {
@@ -222,6 +227,8 @@ public class MainActivity extends Activity implements LocationListener {
             }
         }
     }
+
+
     public float metersperSecondtoUnit(float mps){
         float outputSpeed;
         if (unitPreference==0){
@@ -238,6 +245,8 @@ public class MainActivity extends Activity implements LocationListener {
         }
         return outputSpeed;
     }
+
+
     public float unitToMetersPerSecond(float unitSpeed){
         System.out.println("in unit to mps");
         System.out.println(unitSpeed);
@@ -257,9 +266,9 @@ public class MainActivity extends Activity implements LocationListener {
             mps = unitSpeed;
         }
         return mps;
-
     }
 
+    //general location listener items unused
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
 
@@ -274,6 +283,8 @@ public class MainActivity extends Activity implements LocationListener {
     public void onProviderDisabled(String provider) {
 
     }
+
+
     public void onShowPopupWindow(View view){
         LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = inflater.inflate(R.layout.popup, null);
@@ -294,12 +305,11 @@ public class MainActivity extends Activity implements LocationListener {
         });
     }
 
+
     protected void onDestroy() {
         super.onDestroy();
-        System.out.println("on Destroy");
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         sharedPrefEditor = sharedPref.edit();
-        System.out.println(maxVelocity);
         sharedPrefEditor.putInt(getString(R.string.highSpeedVolumeKey), sbv.getHighSpeedVolume());
         sharedPrefEditor.putInt(getString(R.string.lowSpeedVolumeKey), sbv.getLowSpeedVolume());
         sharedPrefEditor.putFloat(getString(R.string.highVelKey), maxVelocity);
@@ -307,15 +317,15 @@ public class MainActivity extends Activity implements LocationListener {
         sharedPrefEditor.putBoolean(getString(R.string.liftCheckKey), liftBool);
         sharedPrefEditor.putInt(getString(R.string.refreshRateKey), refreshRate);
         sharedPrefEditor.commit();
+
         am.setStreamVolume(AudioManager.STREAM_MUSIC, beforeVolume, 0);
         Intent serviceIntent = new Intent(this, ForegroundService.class);
         stopService(serviceIntent);
-
-
     }
+
+
     public void startService(){
         Intent serviceIntent = new Intent(this, ForegroundService.class);
-        System.out.println(maxVelocity);
         serviceIntent.putExtra(getString(R.string.highVelKey), maxVelocity);
         serviceIntent.putExtra(getString(R.string.lowVelKey), minVelocity);
         serviceIntent.putExtra(getString(R.string.lowSpeedVolumeKey), sbv.getLowSpeedVolume());
@@ -325,15 +335,14 @@ public class MainActivity extends Activity implements LocationListener {
         serviceIntent.putExtra(getString(R.string.refreshRateKey), refreshRate);
         startForegroundService(serviceIntent);
     }
+
     public void stopService(){
         Intent serviceIntent = new Intent(this, ForegroundService.class);
         stopService(serviceIntent);
     }
+
     public void startOptionsActivity(){
         Intent intent = new Intent(this, OptionsActivity.class);
         startActivity(intent);
-
     }
-
-
 }
