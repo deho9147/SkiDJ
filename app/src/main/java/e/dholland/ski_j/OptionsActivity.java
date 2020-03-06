@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class OptionsActivity extends AppCompatActivity {
     SharedPreferences sharedPref;
+    SharedPreferences.Editor sharedPrefEditor;
     int themePreference;
     int unitPreference;
     int refreshRate;
@@ -125,9 +126,11 @@ public class OptionsActivity extends AppCompatActivity {
                 SharedPreferences.Editor sharedPrefEditor = sharedPref.edit();
                 if (autoStartBox.isChecked()){
                     sharedPrefEditor.putBoolean(getString(R.string.autoStartKey),true);
+                    sharedPrefEditor.putBoolean(getString(R.string.serviceRunning),true);
                 }
                 else{
                     sharedPrefEditor.putBoolean(getString(R.string.autoStartKey),false);
+                    sharedPrefEditor.putBoolean(getString(R.string.serviceRunning),true);
                 }
                 sharedPrefEditor.commit();
             }

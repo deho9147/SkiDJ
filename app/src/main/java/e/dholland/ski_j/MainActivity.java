@@ -68,9 +68,7 @@ public class MainActivity extends Activity implements LocationListener {
         autoStart = sharedPref.getBoolean(getString(R.string.autoStartKey),false);
         refreshRate = sharedPref.getInt(getString(R.string.refreshRateKey),1);
         unitPreference = sharedPref.getInt(getString(R.string.unitPreferenceKey),0);
-
-
-        serviceRunning=false;
+        serviceRunning=sharedPref.getBoolean(getString(R.string.serviceRunning),false);
 
 
         if (theme == 0){
@@ -189,6 +187,10 @@ public class MainActivity extends Activity implements LocationListener {
             startService();
         }else{
             startButton.setVisibility(View.VISIBLE);
+            if (serviceRunning){
+                startButton.setText("Stop");
+                startButton.setBackgroundResource(R.drawable.start_button_red);
+            }
             startButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -316,6 +318,8 @@ public class MainActivity extends Activity implements LocationListener {
         sharedPrefEditor.putFloat(getString(R.string.lowVelKey), minVelocity);
         sharedPrefEditor.putBoolean(getString(R.string.liftCheckKey), liftBool);
         sharedPrefEditor.putInt(getString(R.string.refreshRateKey), refreshRate);
+        sharedPrefEditor.putBoolean(getString(R.string.serviceRunning),false);
+        System.out.println("OnDestroy");
         sharedPrefEditor.commit();
 
         am.setStreamVolume(AudioManager.STREAM_MUSIC, beforeVolume, 0);
@@ -326,6 +330,16 @@ public class MainActivity extends Activity implements LocationListener {
 
     public void startService(){
         Intent serviceIntent = new Intent(this, ForegroundService.class);
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPrefEditor = sharedPref.edit();
+        sharedPrefEditor.putInt(getString(R.string.highSpeedVolumeKey), sbv.getHighSpeedVolume());
+        sharedPrefEditor.putInt(getString(R.string.lowSpeedVolumeKey), sbv.getLowSpeedVolume());
+        sharedPrefEditor.putFloat(getString(R.string.highVelKey), maxVelocity);
+        sharedPrefEditor.putFloat(getString(R.string.lowVelKey), minVelocity);
+        sharedPrefEditor.putBoolean(getString(R.string.liftCheckKey), liftBool);
+        sharedPrefEditor.putInt(getString(R.string.refreshRateKey), refreshRate);
+        sharedPrefEditor.putBoolean(getString(R.string.serviceRunning),serviceRunning);
+        sharedPrefEditor.commit();
         serviceIntent.putExtra(getString(R.string.highVelKey), maxVelocity);
         serviceIntent.putExtra(getString(R.string.lowVelKey), minVelocity);
         serviceIntent.putExtra(getString(R.string.lowSpeedVolumeKey), sbv.getLowSpeedVolume());
@@ -337,12 +351,34 @@ public class MainActivity extends Activity implements LocationListener {
     }
 
     public void stopService(){
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPrefEditor = sharedPref.edit();
+        sharedPrefEditor.putInt(getString(R.string.highSpeedVolumeKey), sbv.getHighSpeedVolume());
+        sharedPrefEditor.putInt(getString(R.string.lowSpeedVolumeKey), sbv.getLowSpeedVolume());
+        sharedPrefEditor.putFloat(getString(R.string.highVelKey), maxVelocity);
+        sharedPrefEditor.putFloat(getString(R.string.lowVelKey), minVelocity);
+        sharedPrefEditor.putBoolean(getString(R.string.liftCheckKey), liftBool);
+        sharedPrefEditor.putInt(getString(R.string.refreshRateKey), refreshRate);
+        sharedPrefEditor.putBoolean(getString(R.string.serviceRunning),serviceRunning);
+        sharedPrefEditor.commit();
         Intent serviceIntent = new Intent(this, ForegroundService.class);
         stopService(serviceIntent);
     }
 
     public void startOptionsActivity(){
         Intent intent = new Intent(this, OptionsActivity.class);
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPrefEditor = sharedPref.edit();
+        sharedPrefEditor.putInt(getString(R.string.highSpeedVolumeKey), sbv.getHighSpeedVolume());
+        sharedPrefEditor.putInt(getString(R.string.lowSpeedVolumeKey), sbv.getLowSpeedVolume());
+        sharedPrefEditor.putFloat(getString(R.string.highVelKey), maxVelocity);
+        sharedPrefEditor.putFloat(getString(R.string.lowVelKey), minVelocity);
+        sharedPrefEditor.putBoolean(getString(R.string.liftCheckKey), liftBool);
+        sharedPrefEditor.putInt(getString(R.string.refreshRateKey), refreshRate);
+        System.out.println("Service Running");
+        System.out.println(serviceRunning);
+        sharedPrefEditor.putBoolean(getString(R.string.serviceRunning),serviceRunning);
+        sharedPrefEditor.commit();
         startActivity(intent);
     }
 }

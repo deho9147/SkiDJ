@@ -17,6 +17,7 @@
     <string name="Max_Speed_Explanation">Maximum Speed: Moving faster than the maximum speed will set the volume to the High Speed Volume.</string>
     <string name="Lift_Check_Explanation">Lift Check: Checking the lift check means the app will set the volume to the Low Speed Volume when senses you are on a lift.</string>
     <string name="Refresh_Rate_Explanation">Refresh Rate: The rate the app retrieves GPS information in seconds. A shorter refresh rate will be more accurate but use more battery.</string>
+    <string name="Automatic_Start_Explanation">Automatic Start: When Automatic Start is checked the app will adjust music volume on start up, otherwise there is a button on the main screen to start and stop adjusting music volume</string>
     <array name="unitChoices">
         <item name="Mph">Miles per Hour</item>
         <item name="Kmh">Kilometers per Hour</item>
